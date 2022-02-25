@@ -12,7 +12,7 @@ Froggy Memory is a memory game that makes the player copy a pattern based on a r
 
 ### Methods:
 I have broken down the program into ___ methods:
-- static List RandomSequence(string colors);
+- static Bool PlaySequence();
 - static Bool PlayerGuess(colors);
 - static void GenerateColor();
 -  
