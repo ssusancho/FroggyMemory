@@ -54,3 +54,22 @@ This method let the player choose the number of colors/frogs they want in their 
 1. Set an integer equal to a list from 0 to the possible number of frogs
 2. Let there be a number of colors that is equal to this possible integer
 3. Add this color to the sequence 
+
+## Method Tests
+### Expected Game Play
+![Expected Game Flowchart](flowcharts/ExpectedGame(1).png)
+![Expected Game Flowchart](flowcharts/ExpectedGame(2).png)
+![Expected Game Flowchart](flowcharts/ExpectedGame(3).png)
+
+### Start Button in the Middle of the Game
+![Start Button Flowchart](flowcharts/StartButton.png)
+
+### Player Presses Frog Before Game has Started
+![Game Not Start Flowchart](flowcharts/GameNotStart.png)
+
+### Player Guesses too Many Times
+![Too Many Guesses Flowchart](flowcharts/TooManyGuesses.png)
+
+### Player Guesses when Sequence is Being Shown
+![Guess During Sequence Flowchart](flowcharts/GuessDuringSequence.png)
+
