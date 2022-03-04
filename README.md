@@ -15,7 +15,7 @@ I have broken down the program into 4 methods:
 - static Bool PlaySequence();
 - static Bool PlayerGuess(colors);
 - static void HighlightFrog(); 
-- static List GenerateColor(List<frogs> possible);
+- static List GenerateColor(List<string> possible);
   
 ### Bool PlaySequence()
 This sequence gets a random color and highlights the corresponding frog. 
