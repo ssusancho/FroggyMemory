@@ -16,10 +16,17 @@ namespace FroggyMemory
         public string test;
 
         public GameObject blueBlur;
+        public GameObject yellowBlur;
+        public GameObject greenBlur;
+        public GameObject redBlur;
+        public GameObject startButton;
 
         public void Start()
-        {
-            // GenerateColor(possible);
+        {   
+            if (startButton = true)
+            {
+                 // GenerateColor(possible);
+            }
         }
 
         public bool PlaySequence()
@@ -32,11 +39,11 @@ namespace FroggyMemory
 
         public void GetGuess(string color)
         {
-            // if(color == Sequence[CurrentColor]);
-            // {
-            //     CurrentColor++;
-            //     HighlightFrog(color);
-            // }
+            if(color == Sequence[CurrentColor]);
+            {
+                CurrentColor++;
+                HighlightFrog(color);
+            }
         }
 
         public void HighlightFrog(string frog)
@@ -45,11 +52,11 @@ namespace FroggyMemory
                 //show image that indicates highlighted frog
                 blueBlur.SetActive(true);
             } else if (frog == "green") {
-
+                greenBlur.SetActive(true);
             } else if (frog == "yellow") {
-
+                yellowBlur.SetActive(true);
             } else if (frog == "red") {
-
+                redBlur.SetActive(true);
             }
 
         }
