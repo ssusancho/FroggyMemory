@@ -9,6 +9,12 @@ namespace FroggyMemory
     {
         // The list containing the sequence
         public List<string> Sequence = new List<string>();
+        public List<FrogColor> blurs;
+        public List<FrogColor> easyFrogs;
+        public List<FrogColor> hardFrogs;
+        public List<FrogColor> mediumFrogs;
+
+        public List<FrogColor> actualFrogs;
         // The CurrentColor within Sequence that is being played
         public int CurrentColor = 0;
         // If true, the sequence is playing
@@ -26,49 +32,55 @@ namespace FroggyMemory
         public GameObject startButton;
         public GameObject startScreen;
         public GameObject gameScreen;
-        public GameObject easyButton;
 
-        public string difficulty;
+        public float Speed = 0.5F; 
+        public float NextDisplayAt = -1;
+        public bool IsHighlight = true;
+        // // NextDisplayAt = Time.time + Speed;    where to put
+
 
         public void OnEasyButtonClick()
         {
-            if (easyButton == true)
-            {
-                difficulty = "easy";
+            // if (easyButton == true)
+            // {
+                
                 startScreen.SetActive(false);
                 gameScreen.SetActive(true);
+                SetupFrogs(easyFrogs);
                 
-                StartGame();
-            }
+                // StartGame();
+            // }
             // how do i make it so that you have to click a difficulty to then switch to the start screen and then u can start the game?
             // also when do i set the frog buttons active so that u only see the frogs of the difficulty that the player chose?
         }
         public void OnHardButtonClick()
         {
-            difficulty = "hard";
+            
+                startScreen.SetActive(false);
+                gameScreen.SetActive(true);
+                SetupFrogs(hardFrogs);
         }
         public void OnMediumButtonClick()
         {
-            difficulty = "medium";
+            startScreen.SetActive(false);
+                gameScreen.SetActive(true);
+                SetupFrogs(mediumFrogs);
+        }
+
+        public void OnStartButtonClick()
+        {
+                AddRandomColor();
+                IsPlayingSequence = true;
+                CurrentColor = 0;
         }
 
         public void StartGame()
         {
-            if (startButton == true)
-            {
-                AddRandomColor();
-                IsPlayingSequence = true;
-                CurrentColor = 0;
-            }
-            else
-            {
-
-            }
         }
 
         public void Update()
         {
-            if (IsPlayingSequence == true)
+            if (IsPlayingSequence == true && Time.time >= NextDisplayAt)
             {
                 IsPlayingSequence = PlaySequence();
                 if (IsPlayingSequence == false)
@@ -76,16 +88,34 @@ namespace FroggyMemory
                     CurrentColor = 0;
                 }
 
+            } else if (Time.time >= NextDisplayAt)
+            {
+                HighlightFrog("none");
             }
         }
 
         public bool PlaySequence()
         {
-            string toShow = Sequence[CurrentColor];
-            Debug.Log(toShow);
-            HighlightFrog(toShow);
-            CurrentColor = CurrentColor + 1;
-            return CurrentColor < Sequence.Count;
+            if (IsHighlight)
+            {
+                string toShow = Sequence[CurrentColor];
+                Debug.Log(toShow);
+                HighlightFrog(toShow);
+                CurrentColor = CurrentColor + 1;
+                NextDisplayAt = Time.time + Speed;
+                IsHighlight = false;
+                return true;
+            }
+            else 
+            {
+                HighlightFrog("none");
+                IsHighlight = true;
+                NextDisplayAt = Time.time + Speed;
+
+                return CurrentColor < Sequence.Count;
+
+            }
+            
         }
 
         public void GetGuess(string color)
@@ -94,6 +124,7 @@ namespace FroggyMemory
             {
                 CurrentColor++;
                 HighlightFrog(color);
+                NextDisplayAt = Time.time + Speed;
             }
             else
             {
@@ -104,27 +135,34 @@ namespace FroggyMemory
                 AddRandomColor();
                 CurrentColor = 0;
                 IsPlayingSequence = true;
+                NextDisplayAt = Time.time + Speed;
+
+            }
+        }
+
+        public void SetupFrogs(List<FrogColor> frogs)
+        {
+            actualFrogs = frogs;
+            foreach(FrogColor obj in frogs)
+            {
+                obj.gameObject.SetActive(true);
+                
             }
         }
 
         public void HighlightFrog(string frog)
         {
-            if (frog == "blue")
+            foreach(FrogColor obj in blurs)
             {
-                //show image that indicates highlighted frog
-                blueBlur.SetActive(true);
-            }
-            else if (frog == "green")
-            {
-                greenBlur.SetActive(true);
-            }
-            else if (frog == "yellow")
-            {
-                yellowBlur.SetActive(true);
-            }
-            else if (frog == "red")
-            {
-                redBlur.SetActive(true);
+                if(obj.color == frog)
+                {
+                    obj.gameObject.SetActive(true);
+                    
+                } else 
+                {
+                    obj.gameObject.SetActive(false);
+
+                }
             }
 
         }
@@ -132,24 +170,9 @@ namespace FroggyMemory
         public void AddRandomColor()
         {
             List<string> colors = new List<string>();
-            if (difficulty == "easy")
+            foreach(FrogColor c in actualFrogs)
             {
-                colors.Add("green");
-                colors.Add("yellow");
-
-            }
-            else if (difficulty == "medium")
-            {
-                colors.Add("red");
-                colors.Add("green");
-                colors.Add("yellow");
-            }
-            else if (difficulty == "hard")
-            {
-                colors.Add("red");
-                colors.Add("blue");
-                colors.Add("green");
-                colors.Add("yellow");
+                colors.Add(c.color);
             }
             GenerateColor(colors);
         }
