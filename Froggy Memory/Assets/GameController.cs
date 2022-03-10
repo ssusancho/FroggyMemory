@@ -32,11 +32,13 @@ namespace FroggyMemory
         public GameObject startButton;
         public GameObject startScreen;
         public GameObject gameScreen;
+        public GameObject gameoverScreen;
+
 
         public float Speed = 0.5F; 
         public float NextDisplayAt = -1;
         public bool IsHighlight = true;
-        // // NextDisplayAt = Time.time + Speed;    where to put
+
 
 
         public void OnEasyButtonClick()
@@ -63,8 +65,8 @@ namespace FroggyMemory
         public void OnMediumButtonClick()
         {
             startScreen.SetActive(false);
-                gameScreen.SetActive(true);
-                SetupFrogs(mediumFrogs);
+            gameScreen.SetActive(true);
+            SetupFrogs(mediumFrogs);
         }
 
         public void OnStartButtonClick()
@@ -109,9 +111,8 @@ namespace FroggyMemory
             else 
             {
                 HighlightFrog("none");
-                IsHighlight = true;
                 NextDisplayAt = Time.time + Speed;
-
+                IsHighlight = true;  
                 return CurrentColor < Sequence.Count;
 
             }
@@ -120,6 +121,7 @@ namespace FroggyMemory
 
         public void GetGuess(string color)
         {
+            // make if statement for if the player clicks while the computer is showing sequence then game over
             if (color == Sequence[CurrentColor])
             {
                 CurrentColor++;
@@ -128,7 +130,8 @@ namespace FroggyMemory
             }
             else
             {
-                // Game over?
+                gameScreen.SetActive(false);
+                gameoverScreen.SetActive(true);
             }
             if (CurrentColor == Sequence.Count)
             {
@@ -138,6 +141,11 @@ namespace FroggyMemory
                 NextDisplayAt = Time.time + Speed;
 
             }
+        }
+
+        public void OnPlayAgainClick(){
+            startScreen.SetActive(true);
+            gameoverScreen.SetActive(false);
         }
 
         public void SetupFrogs(List<FrogColor> frogs)
