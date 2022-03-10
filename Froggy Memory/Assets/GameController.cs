@@ -35,8 +35,9 @@ namespace FroggyMemory
         public GameObject gameoverScreen;
 
 
-        public float Speed = 0.5F; 
+        public float Speed = 0.5F;
         public float NextDisplayAt = -1;
+        public float StartPlaySequenceAt = -1;
         public bool IsHighlight = true;
 
 
@@ -45,22 +46,22 @@ namespace FroggyMemory
         {
             // if (easyButton == true)
             // {
-                
-                startScreen.SetActive(false);
-                gameScreen.SetActive(true);
-                SetupFrogs(easyFrogs);
-                
-                // StartGame();
+
+            startScreen.SetActive(false);
+            gameScreen.SetActive(true);
+            SetupFrogs(easyFrogs);
+
+            // StartGame();
             // }
             // how do i make it so that you have to click a difficulty to then switch to the start screen and then u can start the game?
             // also when do i set the frog buttons active so that u only see the frogs of the difficulty that the player chose?
         }
         public void OnHardButtonClick()
         {
-            
-                startScreen.SetActive(false);
-                gameScreen.SetActive(true);
-                SetupFrogs(hardFrogs);
+
+            startScreen.SetActive(false);
+            gameScreen.SetActive(true);
+            SetupFrogs(hardFrogs);
         }
         public void OnMediumButtonClick()
         {
@@ -71,9 +72,9 @@ namespace FroggyMemory
 
         public void OnStartButtonClick()
         {
-                AddRandomColor();
-                IsPlayingSequence = true;
-                CurrentColor = 0;
+            AddRandomColor();
+            IsPlayingSequence = true;
+            CurrentColor = 0;
         }
 
         public void StartGame()
@@ -82,6 +83,11 @@ namespace FroggyMemory
 
         public void Update()
         {
+            if (Time.time >= StartPlaySequenceAt && StartPlaySequenceAt > 0)
+            {
+                IsPlayingSequence = true;
+                StartPlaySequenceAt = -1;
+            }
             if (IsPlayingSequence == true && Time.time >= NextDisplayAt)
             {
                 IsPlayingSequence = PlaySequence();
@@ -90,7 +96,8 @@ namespace FroggyMemory
                     CurrentColor = 0;
                 }
 
-            } else if (Time.time >= NextDisplayAt)
+            }
+            else if (Time.time >= NextDisplayAt)
             {
                 HighlightFrog("none");
             }
@@ -108,19 +115,22 @@ namespace FroggyMemory
                 IsHighlight = false;
                 return true;
             }
-            else 
+            else
             {
                 HighlightFrog("none");
                 NextDisplayAt = Time.time + Speed;
-                IsHighlight = true;  
+                IsHighlight = true;
                 return CurrentColor < Sequence.Count;
 
             }
-            
+
         }
 
         public void GetGuess(string color)
         {
+            if (IsPlayingSequence){
+                return;
+            }
             // make if statement for if the player clicks while the computer is showing sequence then game over
             if (color == Sequence[CurrentColor])
             {
@@ -137,13 +147,13 @@ namespace FroggyMemory
             {
                 AddRandomColor();
                 CurrentColor = 0;
-                IsPlayingSequence = true;
-                NextDisplayAt = Time.time + Speed;
-
+                StartPlaySequenceAt = NextDisplayAt + Speed;
+                // IsPlayingSequence = true;
             }
         }
 
-        public void OnPlayAgainClick(){
+        public void OnPlayAgainClick()
+        {
             startScreen.SetActive(true);
             gameoverScreen.SetActive(false);
         }
@@ -151,22 +161,23 @@ namespace FroggyMemory
         public void SetupFrogs(List<FrogColor> frogs)
         {
             actualFrogs = frogs;
-            foreach(FrogColor obj in frogs)
+            foreach (FrogColor obj in frogs)
             {
                 obj.gameObject.SetActive(true);
-                
+
             }
         }
 
         public void HighlightFrog(string frog)
         {
-            foreach(FrogColor obj in blurs)
+            foreach (FrogColor obj in blurs)
             {
-                if(obj.color == frog)
+                if (obj.color == frog)
                 {
                     obj.gameObject.SetActive(true);
-                    
-                } else 
+
+                }
+                else
                 {
                     obj.gameObject.SetActive(false);
 
@@ -178,7 +189,7 @@ namespace FroggyMemory
         public void AddRandomColor()
         {
             List<string> colors = new List<string>();
-            foreach(FrogColor c in actualFrogs)
+            foreach (FrogColor c in actualFrogs)
             {
                 colors.Add(c.color);
             }
