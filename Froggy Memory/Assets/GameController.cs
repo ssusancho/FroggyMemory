@@ -77,6 +77,12 @@ namespace FroggyMemory
             CurrentColor = 0;
         }
 
+        public void OnQuitButtonClick()
+        {
+            gameoverScreen.SetActive(true);
+            gameScreen.SetActive(false);
+        }
+
         public void StartGame()
         {
         }
@@ -156,6 +162,25 @@ namespace FroggyMemory
         {
             startScreen.SetActive(true);
             gameoverScreen.SetActive(false);
+            ResetFrogs(actualFrogs);
+        }
+
+        public void ResetFrogs(List<FrogColor> frogs)
+        {
+            if(frogs == null)
+            {
+                throw new Exception("Cannot use null frog list.");
+            }
+            if (frogs.Count < 1)
+            {
+                throw new Exception("List must contain at least 1 frog");
+            }
+           actualFrogs = frogs;
+            foreach (FrogColor obj in frogs)
+            {
+                obj.gameObject.SetActive(false);
+
+            } 
         }
 
         public void SetupFrogs(List<FrogColor> frogs)
@@ -195,11 +220,11 @@ namespace FroggyMemory
             }
             GenerateColor(colors);
         }
-        public void GenerateColor(List<string> possible)
+        public void GenerateColor(List<string> colors)
         {
             System.Random generator = new System.Random();
-            int ix = generator.Next(0, possible.Count);
-            string color = possible[ix];
+            int ix = generator.Next(0, colors.Count);
+            string color = colors[ix];
             Sequence.Add(color);
         }
 
