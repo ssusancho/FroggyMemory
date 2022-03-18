@@ -169,11 +169,11 @@ namespace FroggyMemory
         {
             if(frogs == null)
             {
-                throw new Exception("Cannot use null frog list.");
+                throw new System.Exception("Cannot use null frog list.");
             }
             if (frogs.Count < 1)
             {
-                throw new Exception("List must contain at least 1 frog");
+                throw new System.Exception("List must contain at least 1 frog");
             }
            actualFrogs = frogs;
             foreach (FrogColor obj in frogs)
