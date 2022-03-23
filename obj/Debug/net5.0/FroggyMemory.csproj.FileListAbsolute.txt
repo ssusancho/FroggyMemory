@@ -1,0 +1,15 @@
+/Users/susancho/Documents/FroggyMemory/bin/Debug/net5.0/FroggyMemory.deps.json
+/Users/susancho/Documents/FroggyMemory/bin/Debug/net5.0/FroggyMemory.runtimeconfig.json
+/Users/susancho/Documents/FroggyMemory/bin/Debug/net5.0/FroggyMemory.runtimeconfig.dev.json
+/Users/susancho/Documents/FroggyMemory/bin/Debug/net5.0/FroggyMemory.dll
+/Users/susancho/Documents/FroggyMemory/bin/Debug/net5.0/ref/FroggyMemory.dll
+/Users/susancho/Documents/FroggyMemory/bin/Debug/net5.0/FroggyMemory.pdb
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.csproj.AssemblyReference.cache
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.GeneratedMSBuildEditorConfig.editorconfig
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.AssemblyInfoInputs.cache
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.AssemblyInfo.cs
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.csproj.CoreCompileInputs.cache
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.dll
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/ref/FroggyMemory.dll
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.pdb
+/Users/susancho/Documents/FroggyMemory/obj/Debug/net5.0/FroggyMemory.genruntimeconfig.cache
